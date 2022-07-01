@@ -13,12 +13,14 @@ public class InsertionSort implements IntegerSort {
 
     @Override
     public void sort(int[] array) {
-        for (int lastSortedIndex = 0; lastSortedIndex < array.length; lastSortedIndex++) {
-            for (int j = lastSortedIndex; j > 0; j--) {
-                if(array[j] < array[j - 1]) {
-                    SortingUtils.swap(array, j, j - 1);
-                }
+        for (int lastSortedIndex = 1; lastSortedIndex < array.length; lastSortedIndex++) {
+            // store the value in the variable.
+            int value = array[lastSortedIndex];
+            int j;
+            for (j = lastSortedIndex; j > 0 && array[j - 1] > value; j--) {
+                array[j] = array[j - 1];
             }
+            array[j] = value;
         }
     }
 }
