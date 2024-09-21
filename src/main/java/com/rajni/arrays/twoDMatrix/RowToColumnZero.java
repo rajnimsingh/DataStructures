@@ -10,7 +10,60 @@ public class RowToColumnZero {
                 {9,2,0,4}
         };
 
-        System.out.println(Arrays.deepToString(rowToColumnZeroMatrix(A)));
+        System.out.println(Arrays.deepToString(rowToColumnZeroOptimized(A)));
+    }
+
+    static int[][] rowToColumnZeroOptimized(int[][] A) {
+
+        // check if any row has zero, discard that rows values
+        int N = A.length;
+        int M = A[0].length;
+        for (int i = 0; i < N; i++) {
+            boolean zeroExists = false;
+            for (int j = 0; j < M; j++) {
+
+                if (A[i][j] == 0) {
+                    zeroExists = true;
+                    break;
+                }
+            }
+
+            if (zeroExists) {
+                for (int j = 0; j < N; j++) {
+                    if (A[i][j] != 0) {
+                        A[i][j] = -1;
+                    }
+                }
+            }
+        }
+
+        // check if any column in zero, discard that column value
+        for (int i = 0; i < M; i++) {
+            boolean zeroExists = false;
+            for (int j = 0 ; j < N; j++) {
+                if (A[j][i] == 0) {
+                    zeroExists = true;
+                    break;
+                }
+            }
+            if (zeroExists) {
+                for (int j = 0; j < N; j++) {
+                    if (A[j][i] != 0) {
+                        A[j][i] = -1;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < N; i++) {
+
+            for (int j = 0; j < M; j++) {
+                if (A[i][j] == -1) {
+                    A[i][j] = 0;
+                }
+            }
+        }
+        return A;
     }
     static int[][] rowToColumnZeroMatrix(int[][] A) {
         int[][] result = new int[A.length][A[0].length];
